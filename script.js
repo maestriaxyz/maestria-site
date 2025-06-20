@@ -1,0 +1,1 @@
+console.log("Site MAESTRÎA carregado com sucesso.");
