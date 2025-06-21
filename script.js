@@ -1,49 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ DOM completamente carregado.");
+  console.log("✅ DOM carregado com GSAP e ScrollTrigger");
 
-  // Elementos da hero section para animação inicial
-  const heroElements = [
-    { selector: '.logo', name: 'Logo' },
-    { selector: '.title', name: 'Título' },
-    { selector: '.subtitle', name: 'Subtítulo' },
-    { selector: '.btn.primary', name: 'Botão Principal' }
-  ];
+  // === GSAP: animação de entrada na hero ===
+  const tl = gsap.timeline({ defaults: { duration: 1, ease: "power2.out" } });
 
-  // Animação sequencial com verificação e log
-  heroElements.forEach((elData, index) => {
-    const el = document.querySelector(elData.selector);
-    if (el) {
-      console.log(`🎯 Elemento encontrado: ${elData.name}`);
-      setTimeout(() => {
-        el.style.opacity = 1;
-        el.style.transform = 'translateY(0)';
-        console.log(`✨ ${elData.name} animado com sucesso.`);
-      }, index * 300);
-    } else {
-      console.warn(`⚠️ Elemento não encontrado: ${elData.name} (${elData.selector})`);
+  tl.from(".logo", { y: -40, opacity: 0 })
+    .from(".title", { y: -30, opacity: 0 }, "-=0.5")
+    .from(".subtitle", { y: -20, opacity: 0 }, "-=0.5")
+    .from(".btn.primary", { y: -20, opacity: 0 }, "-=0.4");
+
+  // === Parallax leve na imagem de fundo da hero ===
+  gsap.to(".hero", {
+    backgroundPosition: "center 20%",
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".hero",
+      start: "top top",
+      end: "bottom top",
+      scrub: true
     }
   });
 
-  // Animações ao rolar usando Intersection Observer
-  const fadeInElements = document.querySelectorAll('.fade-in');
-  if (fadeInElements.length > 0) {
-    console.log(`📦 ${fadeInElements.length} elementos com fade-in encontrados.`);
+  // === Fade-in nas seções com ScrollTrigger ===
+  gsap.utils.toArray(".fade-in").forEach(section => {
+    gsap.from(section, {
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        toggleActions: "play none none none"
+      }
+    });
+  });
 
-    const observerOptions = { threshold: 0.2 };
-    const observer = new IntersectionObserver((entries, observerInstance) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          console.log(`🟢 Entrou na viewport:`, entry.target);
-          entry.target.classList.add('visible');
-          observerInstance.unobserve(entry.target);
-        } else {
-          console.log(`🔵 Fora da viewport (ainda):`, entry.target);
+  // === ScrollSpy com ScrollTrigger (opcional visual) ===
+  const links = document.querySelectorAll("a[href^='#']");
+  links.forEach(link => {
+    const targetId = link.getAttribute("href").slice(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      ScrollTrigger.create({
+        trigger: target,
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => {
+          links.forEach(l => l.classList.remove("active"));
+          link.classList.add("active");
+          console.log(`📌 Ativo: #${targetId}`);
+        },
+        onLeaveBack: () => {
+          links.forEach(l => l.classList.remove("active"));
         }
       });
-    }, observerOptions);
-
-    fadeInElements.forEach(el => observer.observe(el));
-  } else {
-    console.warn("⚠️ Nenhum elemento com classe .fade-in encontrado.");
-  }
+    }
+  });
 });
