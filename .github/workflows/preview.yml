@@ -1,0 +1,19 @@
+name: Preview Dev Build
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Criar artefato de pré-visualização
+        uses: actions/upload-artifact@v3
+        with:
+          name: preview-site
+          path: .
