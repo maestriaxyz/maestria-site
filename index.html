@@ -1,21 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MAESTRÎA é uma empresa de tecnologia com propósito, oferecendo soluções inteligentes e humanas." />
+  <meta name="keywords" content="tecnologia, inovação, startup, inteligência, soluções digitais, MAESTRÎA" />
+  <meta name="author" content="MAESTRÎA" />
+  
   <title>MAESTRÎA</title>
   <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-  <header>
-    <h1>Bem-vindo à MAESTRÎA</h1>
+  <header class="hero" id="hero" role="banner" aria-label="Início do site com logo e chamada">
+    <div class="overlay"></div>
+    <img src="assets/logo.svg" alt="Logo MAESTRÎA" class="logo">
+    <h1 class="title">MAESTRÎA</h1>
+    <p class="subtitle">Inovação com propósito. Tecnologia com alma.</p>
+    <a href="#sobre" class="btn primary" aria-label="Ir para a seção sobre a MAESTRÎA">Conheça a MAESTRÎA</a>
   </header>
-  <main>
-    <p>Site institucional moderno em construção.</p>
-  </main>
+
+  <section id="sobre" class="section fade-in">
+    <h2>Sobre Nós</h2>
+    <p>Somos uma empresa de tecnologia com foco em soluções humanas e inteligentes...</p>
+  </section>
+  
+  <section id="contato" class="contato">
+    <h2>Fale Conosco</h2>
+      <form action="https://formspree.io/f/{seu-id-aqui}" method="POST" aria-label="Formulário de contato">
+        <label for="nome">Nome</label>
+        <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Seu e-mail" required />
+
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem..." required></textarea>
+
+        <button type="submit" aria-label="Enviar mensagem">Enviar</button>
+      </form>
+  </section>
+
   <footer>
     <p>&copy; 2025 MAESTRÎA</p>
   </footer>
+  
   <script src="script.js"></script>
+
 </body>
 </html>
