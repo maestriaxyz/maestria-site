@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ DOM carregado com GSAP e ScrollTrigger");
 
-  // === GSAP: animação de entrada na hero ===
   const tl = gsap.timeline({ defaults: { duration: 1, ease: "power2.out" } });
 
   tl.from(".logo", { y: -40, opacity: 0 })
@@ -9,25 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .from(".subtitle", { y: -20, opacity: 0 }, "-=0.5")
     .from(".btn.primary", { y: -20, opacity: 0 }, "-=0.4");
 
-  // === Parallax leve na imagem de fundo da hero ===
-  gsap.to(".hero", {
-    backgroundPosition: "center 20%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: true
-    }
-  });
-
-  // === Fade-in nas seções com ScrollTrigger ===
   gsap.utils.toArray(".fade-in").forEach(section => {
     gsap.from(section, {
       opacity: 0,
       y: 40,
-      duration: 0.8,
-      ease: "power2.out",
+      duration: 1,
       scrollTrigger: {
         trigger: section,
         start: "top 80%",
@@ -36,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // === ScrollSpy com ScrollTrigger (opcional visual) ===
   const links = document.querySelectorAll("a[href^='#']");
   links.forEach(link => {
     const targetId = link.getAttribute("href").slice(1);
