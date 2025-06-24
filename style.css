@@ -59,7 +59,7 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-emphasis-color: transparent;
+  text-fill-color: transparent;
   margin-bottom: 1rem;
   z-index: 1;
   opacity: 0;
